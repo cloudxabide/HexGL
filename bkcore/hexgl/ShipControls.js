@@ -131,13 +131,10 @@ bkcore.hexgl.ShipControls = function(ctx)
 					window.location.reload(false);
 				else if(event.touches.length == 3)
 					ctx.restart();
-				// touch was on the right-hand side of the screen
-				else if (touch.clientX > (ctx.width / 2)) {
-					if (event.type === 'touchend')
-						self.key.forward = false;
-					else
-						self.key.forward = true;
-				}
+				else if(event.touches.length <= 1)
+					self.key.forward = false;
+				else
+					self.key.forward = true;
 			});
 	}
 	else if(ctx.controlType == 4 && bkcore.controllers.OrientationController.isCompatible())
@@ -338,10 +335,6 @@ bkcore.hexgl.ShipControls.prototype.terminate = function()
 
 bkcore.hexgl.ShipControls.prototype.destroy = function()
 {
-	bkcore.Audio.play('destroyed');
-	bkcore.Audio.stop('bg');
-	bkcore.Audio.stop('wind');
-
 	this.active = false;
 	this.destroyed = true;
 	this.collision.front = false;
@@ -536,10 +529,6 @@ bkcore.hexgl.ShipControls.prototype.update = function(dt)
 		this.mesh.applyMatrix(this.dummy.matrix);
 		this.mesh.updateMatrixWorld(true);
 	}
-
-	//Update listener position
-	bkcore.Audio.setListenerPos(this.movement);
-	bkcore.Audio.setListenerVelocity(this.currentVelocity);
 };
 
 bkcore.hexgl.ShipControls.prototype.teleport = function(pos, quat)
@@ -557,7 +546,7 @@ bkcore.hexgl.ShipControls.prototype.teleport = function(pos, quat)
 	if(this.mesh != null)
 	{
 		this.mesh.matrix.identity();
-
+/*
 		// Gradient (Mesh only, no dummy physics impact)
 		var gradientDelta = (this.gradientTarget - this.gradient) * this.gradientLerp;
 		if(Math.abs(gradientDelta) > this.epsilon) this.gradient += gradientDelta;
@@ -575,7 +564,7 @@ bkcore.hexgl.ShipControls.prototype.teleport = function(pos, quat)
 			this.tiltAxis.set(0,0,1);
 			this.mesh.matrix.rotateByAxis(this.tiltAxis, this.tilt);
 		}
-
+ */
 		this.mesh.applyMatrix(this.dummy.matrix);
 		this.mesh.updateMatrixWorld(true);
 	}
@@ -587,10 +576,8 @@ bkcore.hexgl.ShipControls.prototype.boosterCheck = function(dt)
 		return false;
 
 	this.boost -= this.boosterDecay * dt;
-	if(this.boost < 0){
+	if(this.boost < 0)
 		this.boost = 0.0;
-		bkcore.Audio.stop('boost');
-	}
 
 	var x = Math.round(this.collisionMap.pixels.width/2 + this.dummy.position.x * this.collisionPixelRatio);
 	var z = Math.round(this.collisionMap.pixels.height/2 + this.dummy.position.z * this.collisionPixelRatio);
@@ -598,10 +585,8 @@ bkcore.hexgl.ShipControls.prototype.boosterCheck = function(dt)
 
 	var color = this.collisionMap.getPixel(x, z);
 
-	if(color.r == 255 && color.g < 127 && color.b < 127) {
-		bkcore.Audio.play('boost');
+	if(color.r == 255 && color.g < 127 && color.b < 127)
 		this.boost = this.boosterSpeed;
-	}
 
 	this.movement.z += this.boost * dt;
 }
@@ -628,8 +613,6 @@ bkcore.hexgl.ShipControls.prototype.collisionCheck = function(dt)
 
 	if(collision.r < 255)
 	{
-		bkcore.Audio.play('crash');
-
 		// Shield
 		var sr = (this.getRealSpeed() / this.maxSpeed);
 		this.shield -= sr * sr * 0.8 * this.shieldDamage;
