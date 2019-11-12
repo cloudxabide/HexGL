@@ -1,3 +1,9 @@
+I have had to fork away (not from) the original project.  For some reason the github repo does not have artifacts matching what is available at BKcore' web page.  So, I used wget to pull down th e content from http://hexgl.bkcore.com/play/ following files in to the location below   
+bkcore/hexgl/HexGL.js  
+bkcore/hexgl/ShipControls.js
+
+
+
 HexGL
 =========
 
