@@ -1,8 +1,8 @@
-I have had to fork away (not from) the original project.  For some reason the github repo does not have artifacts matching what is available at BKcore' web page.  So, I used wget to pull down th e content from http://hexgl.bkcore.com/play/ following files in to the location below   
+I have had to fork away (not from) the original project.  For some reason the github repo does not have artifacts matching what is available at BKcore' web page.  So, I used wget to pull down the content from:  
+http://hexgl.bkcore.com/play/ 
+specifically the following files in to the location below:  
 bkcore/hexgl/HexGL.js  
 bkcore/hexgl/ShipControls.js
-
-
 
 HexGL
 =========
@@ -28,5 +28,8 @@ To use full size textures, swap the two textures/ and textures.full/ directories
 
 ## Note
 
+This was from the BKcore Developer
+```
 The development of HexGL is in a hiatus for now until I find some time and interest to work on it again.
 That said, feel free to post issues, patches, or anything to make the game better and I'll gladly review and merge them.
+```
