@@ -11,7 +11,6 @@ bkcore/hexgl/ShipControls.js
 ```
 ## HexGL
 ### Create Your Project and Deploy App (HexGL)
-```
 # HexGL is a HTML5 video game resembling WipeOut from back in the day (Hack the Planet!)
 MYPROJ="hexgl"
 oc new-project $MYPROJ --description="HexGL Video Game" --display-name="HexGL Game" || { echo "ERROR: something went wrong"; sleep 5; exit 9; }
@@ -38,7 +37,6 @@ spec:
 
 At some point you will be able to browse to (depending on the route you enabled):
 https://hexgl.linuxrevolution.com/
-```
 
 ## Original Content Header
 HexGL
