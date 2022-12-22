@@ -51,6 +51,8 @@ Source code of [HexGL](http://hexgl.bkcore.com), the futuristic HTML5 racing gam
 
 Unless specified in the file, HexGL's code and resources are now licensed under the *MIT License*.
 
+-- NOTE: I had to make some updates to the original instructions, as I do not run stuff as root (even on my workstation) and you cannot bind to a priv port (under 1024) as a non-root user
+
 ## Installation (local)
         yum -y install chromium-browser
 	cd ~/
@@ -60,7 +62,17 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
           Python*3.*) python -m http.server ;;
           *) python -m SimpleHTTPServer ;;
         esac
-	chromium index.html
+        chromium http://localhost:8000/index.html
+
+## Run locally as a container
+
+        yum -y install chromium-browser
+        cd ~/
+        git clone git://github.com/BKcore/HexGL.git
+        cd HexGL
+        podman build -t my-hexgl .
+        podman run --name hexgl localhost/my-hexgl
+        chromium http://localhost:8000/index.html
 
 To use full size textures, swap the two textures/ and textures.full/ directories.
 
