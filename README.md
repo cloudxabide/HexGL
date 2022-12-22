@@ -74,6 +74,10 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
         podman run --name hexgl localhost/my-hexgl
         chromium http://localhost:8000/index.html
 
+As this is the ONLY pod running on my host, I can run: 
+       podman stop $(podman ps | grep -v ^CONT | awk '{ print $1 }')
+
+
 To use full size textures, swap the two textures/ and textures.full/ directories.
 
 ## Note
