@@ -62,7 +62,7 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
           Python*3.*) python -m http.server ;;
           *) python -m SimpleHTTPServer ;;
         esac
-        chromium http://localhost:8000/index.html
+        chromium-browser http://localhost:8000/index.html
 
 ## Run locally as a container
 
@@ -72,7 +72,7 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
         cd HexGL
         podman build -t my-hexgl .
         podman run --name hexgl localhost/my-hexgl
-        chromium http://localhost:8000/index.html
+        chromium-browser http://localhost:8000/index.html
 
 As this is the ONLY pod running on my host, I can run: 
        podman stop $(podman ps | grep -v ^CONT | awk '{ print $1 }')
