@@ -38,6 +38,17 @@ spec:
 At some point you will be able to browse to (depending on the route you enabled):
 https://hexgl.linuxrevolution.com/
 
+## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
+Status:  Needs work yet
+```
+        cd ~/
+        git clone https://github.com/cloudxabide/HexGL.git
+        cd HexGL
+        docker build -t my-hexgl .
+        docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
+	kubectl create -f deployments/hexgl-deployment.yaml        
+```
+
 ## Original Content Header
 HexGL
 =========
