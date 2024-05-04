@@ -41,7 +41,7 @@ https://hexgl.linuxrevolution.com/
 ## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
 Status:  Needs work yet
 ```
-        cd ~/
+        cd ~/DevOps
         git clone https://github.com/cloudxabide/HexGL.git
         cd HexGL
         docker build -t my-hexgl .
@@ -82,7 +82,7 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
         git clone git://github.com/BKcore/HexGL.git
         cd HexGL
         podman build -t my-hexgl .
-        podman run --name hexgl localhost/my-hexgl
+        podman run -p 80:8080 --name hexgl localhost/my-hexgl
         chromium-browser http://localhost:8000/index.html
 
 As this is the ONLY pod running on my host, I can run: 
