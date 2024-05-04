@@ -7,6 +7,9 @@ specifically the following files in to the location below:
 bkcore/hexgl/HexGL.js  
 bkcore/hexgl/ShipControls.js
 
+### Notes
+I decided to utilize port 8080 in the container and I will need to clean up some of my artifacts as a result.  So, if you see 8000/7000/etc... that is likely the old ports I had been using.
+
 ## Deploy on OpenShift
 ```
 ## HexGL
@@ -46,6 +49,7 @@ Status:  Needs work yet
         cd HexGL
         docker build -t my-hexgl .
         docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
+        docker push docker.io/cloudxabide/my-hexgl:latest
 	kubectl create -f deployments/hexgl-deployment.yaml        
 ```
 
