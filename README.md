@@ -85,7 +85,7 @@ chromium-browser http://localhost:8000/index.html
 ## Run locally as a container
 
         yum -y install chromium-browser
-        cd ~/
+ 	mkdir ~/DevOps; cd $_
 	#git clone git://github.com/BKcore/HexGL.git
 	git clone https://github.com/cloudxabide/HexGL.git
         cd HexGL
