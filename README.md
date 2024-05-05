@@ -72,7 +72,8 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
 ```
 yum -y install chromium-browser
 mkdir ~/DevOps; cd $_ 
-git clone git://github.com/BKcore/HexGL.git
+#git clone git://github.com/BKcore/HexGL.git
+git clone https://github.com/cloudxabide/HexGL.git
 cd HexGL
 case $(python --version) in 
   Python*3.*) python -m http.server ;;
@@ -85,7 +86,8 @@ chromium-browser http://localhost:8000/index.html
 
         yum -y install chromium-browser
         cd ~/
-        git clone git://github.com/BKcore/HexGL.git
+	#git clone git://github.com/BKcore/HexGL.git
+	git clone https://github.com/cloudxabide/HexGL.git
         cd HexGL
         podman build -t my-hexgl .
         podman run -p 80:8080 --name hexgl localhost/my-hexgl
