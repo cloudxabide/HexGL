@@ -69,6 +69,7 @@ Unless specified in the file, HexGL's code and resources are now licensed under 
 -- NOTE: I had to make some updates to the original instructions, as I do not run stuff as root (even on my workstation) and you cannot bind to a priv port (under 1024) as a non-root user
 
 ## Installation (local)
+```
 yum -y install chromium-browser
 mkdir ~/DevOps; cd $_ 
 git clone git://github.com/BKcore/HexGL.git
@@ -78,6 +79,7 @@ case $(python --version) in
   *) python -m SimpleHTTPServer ;;
 esac
 chromium-browser http://localhost:8000/index.html
+```
 
 ## Run locally as a container
 
