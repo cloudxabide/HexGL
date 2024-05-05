@@ -79,22 +79,25 @@ case $(python --version) in
   Python*3.*) python -m http.server ;;
   *) python -m SimpleHTTPServer ;;
 esac
-chromium-browser http://localhost:8000/index.html
+chromium-browser http://localhost/index.html
 ```
 
 ## Run locally as a container
-
-        yum -y install chromium-browser
- 	mkdir ~/DevOps; cd $_
-	#git clone git://github.com/BKcore/HexGL.git
-	git clone https://github.com/cloudxabide/HexGL.git
-        cd HexGL
-        podman build -t my-hexgl .
-        podman run -p 80:8080 --name hexgl localhost/my-hexgl
-        chromium-browser http://localhost:8000/index.html
-
+```
+yum -y install chromium-browser
+mkdir ~/DevOps; cd $_
+#git clone git://github.com/BKcore/HexGL.git
+git clone https://github.com/cloudxabide/HexGL.git
+cd HexGL
+podman build -t my-hexgl .
+podman run -p 80:8080 --name hexgl localhost/my-hexgl
+chromium-browser http://localhost/index.html
+```
+        
 As this is the ONLY pod running on my host, I can run: 
+```
        podman stop $(podman ps | grep -v ^CONT | awk '{ print $1 }')
+```
 
 
 To use full size textures, swap the two textures/ and textures.full/ directories.
