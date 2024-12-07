@@ -43,6 +43,7 @@ https://hexgl.linuxrevolution.com/
 
 ## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
 Status:  Needs work yet
+### Build the Container Image and push it
 ```
   mkdir ~/Projects; cd $_
   git clone https://github.com/cloudxabide/HexGL.git
@@ -50,6 +51,9 @@ Status:  Needs work yet
   docker build -t my-hexgl .
   docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
   docker push docker.io/cloudxabide/my-hexgl:latest
+```
+### Amazon EKS-Anywhere (or K8s, in general)
+```
   kubectl create -f deployments/hexgl-deployment.yaml        
 ```
 ### Rancher Desktop
