@@ -44,14 +44,19 @@ https://hexgl.linuxrevolution.com/
 ## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
 Status:  Needs work yet
 ```
-        cd ~/DevOps
-        git clone https://github.com/cloudxabide/HexGL.git
-        cd HexGL
-        docker build -t my-hexgl .
-        docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
-        docker push docker.io/cloudxabide/my-hexgl:latest
-	kubectl create -f deployments/hexgl-deployment.yaml        
+  mkdir ~/Projects; cd $_
+  git clone https://github.com/cloudxabide/HexGL.git
+  cd HexGL
+  docker build -t my-hexgl .
+  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
+  docker push docker.io/cloudxabide/my-hexgl:latest
+  kubectl create -f deployments/hexgl-deployment.yaml        
 ```
+### Rancher Desktop
+```
+ kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080
+```
+
 
 ## Original Content Header
 HexGL
