@@ -17,7 +17,7 @@ I decided to utilize port 8080 in the container and I will need to clean up some
 # HexGL is a HTML5 video game resembling WipeOut from back in the day (Hack the Planet!)
 MYPROJ="hexgl"
 oc new-project $MYPROJ --description="HexGL Video Game" --display-name="HexGL Game" || { echo "ERROR: something went wrong"; sleep 5; exit 9; }
-oc new-app php:7.3~https://github.com/cloudxabide/HexGL.git --image-stream="openshift/php:latest" --strategy=source
+oc new-app php:latest~https://github.com/cloudxabide/HexGL.git --image-stream="openshift/php:latest" --strategy=source
 
 # Wait for the build to complete (CrashLoopBackoff is "normal" for this build)
 oc get pods -w
@@ -31,8 +31,10 @@ echo '{ "kind": "List", "apiVersion": "v1", "metadata": {}, "items": [ { "kind":
 # Once the app is built (and running) update the deployment
 oc scale deployment.apps/php --replicas=0
 oc scale deployment.apps/hexgl --replicas=3
+```
 
 -- Or...
+```
 oc edit deployment.apps/php
 spec:
   replicas: 0
