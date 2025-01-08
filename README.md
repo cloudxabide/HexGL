@@ -57,9 +57,14 @@ Status:  Needs work yet
   docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
   docker push docker.io/cloudxabide/my-hexgl:latest
 ```
+
 ### Amazon EKS-Anywhere (or K8s, in general)
 ```
-  kubectl create -f deployments/hexgl-deployment.yaml        
+  git clone https://github.com/cloudxabide/HexGL.git
+  cd HexGL
+  kubectl create namespace hexgl
+  kubectl config set-context --current --namespace=hexgl
+  kubectl create -f Deployments/hexgl-deployment.yaml        
 ```
 ### Rancher Desktop
 ```
