@@ -22,11 +22,8 @@ oc new-app php:latest~https://github.com/cloudxabide/HexGL.git --image-stream="o
 # Wait for the build to complete (CrashLoopBackoff is "normal" for this build)
 oc get pods -w
 
-# Add a route (hexgl.linuxrevolution.com)
-echo '{ "kind": "List", "apiVersion": "v1", "metadata": {}, "items": [ { "kind": "Route", "apiVersion": "v1", "metadata": { "name": "hexgl", "creationTimestamp": null, "labels": { "app": "hexgl" } }, "spec": { "host": "hexgl.linuxrevolution.com", "to": { "kind": "Service", "name": "hexgl" }, "port": { "targetPort": 8080 }, "tls": { "termination": "edge" } }, "status": {} } ] }' | oc create -f -
-
-# Add a route (hexgl.apps.test.openshift.kubernerdes.com)
-echo '{ "kind": "List", "apiVersion": "route.openshift.io/v1", "metadata": {}, "items": [ { "kind": "Route", "apiVersion": "route.openshift.io/v1", "metadata": { "name": "hexgl", "creationTimestamp": null, "labels": { "app": "hexgl" } }, "spec": { "host": "hexgl.apps.test.openshift.kubernerdes.com", "to": { "kind": "Service", "name": "hexgl" }, "port": { "targetPort": 8080 }, "tls": { "termination": "edge" } }, "status": {} } ] }' | oc create -f -
+# Add a route (hexgl.apps.demo.openshift.kubernerdes.com)
+echo '{ "kind": "List", "apiVersion": "route.openshift.io/v1", "metadata": {}, "items": [ { "kind": "Route", "apiVersion": "route.openshift.io/v1", "metadata": { "name": "hexgl", "creationTimestamp": null, "labels": { "app": "hexgl" } }, "spec": { "host": "hexgl.apps.demo.openshift.kubernerdes.com", "to": { "kind": "Service", "name": "hexgl" }, "port": { "targetPort": 8080 }, "tls": { "termination": "edge" } }, "status": {} } ] }' | oc create -f -
 
 # this is the old way
 #echo '{ "kind": "List", "apiVersion": "v1", "metadata": {}, "items": [ { "kind": "Route", "apiVersion": "v1", "metadata": { "name": "hexgl", "creationTimestamp": null, "labels": { "app": "hexgl" } }, "spec": { "host": "hexgl.apps.ocp4-mwn.linuxrevolution.com", "to": { "kind": "Service", "name": "hexgl" }, "port": { "targetPort": 8080 }, "tls": { "termination": "edge" } }, "status": {} } ] }' | oc create -f -
@@ -48,11 +45,15 @@ https://hexgl.linuxrevolution.com/
 
 ## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
 Status:  Needs work yet
-### Build the Container Image and push it
+### Pull down the source
 ```
   mkdir ~/Projects; cd $_
   git clone https://github.com/cloudxabide/HexGL.git
   cd HexGL
+```
+
+### Build the Container Image and push it (optional)
+```
   docker build -t my-hexgl .
   docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
   docker push docker.io/cloudxabide/my-hexgl:latest
@@ -65,8 +66,10 @@ Status:  Needs work yet
   kubectl create namespace hexgl
   kubectl config set-context --current --namespace=hexgl
   kubectl create -f Deployments/hexgl-deployment.yaml        
+  kubectl expose deployment.apps/hexgl-deployment --type="LoadBalancer" --port 8080
 ```
-### Rancher Desktop
+
+### Rancher Desktop (NOTE: I need to clean this up)
 ```
  kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080
 ```
@@ -117,7 +120,6 @@ As this is the ONLY pod running on my host, I can run:
 ```
        podman stop $(podman ps | grep -v ^CONT | awk '{ print $1 }')
 ```
-
 
 To use full size textures, swap the two textures/ and textures.full/ directories.
 
