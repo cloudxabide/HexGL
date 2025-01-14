@@ -60,9 +60,13 @@ Status:  Needs work yet
 ```
 
 ### Amazon EKS-Anywhere (or K8s, in general)
+#### Clone HexGl Repo (my fork)
 ```
   git clone https://github.com/cloudxabide/HexGL.git
   cd HexGL
+```
+then... Deploy the app
+```
   kubectl create namespace hexgl
   kubectl config set-context --current --namespace=hexgl
   kubectl create -f Deployments/hexgl-deployment.yaml        
@@ -71,9 +75,10 @@ Status:  Needs work yet
 
 ### Rancher Desktop (NOTE: I need to clean this up)
 ```
- kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080
+kubectl port-forward $(kubectl get pods -n hexgl --selector=app=hexgl --no-headers | tail -1 | awk '{ print $1 }') 8080:8080
 ```
 
+ex. ` kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080`
 
 ## Original Content Header
 HexGL
