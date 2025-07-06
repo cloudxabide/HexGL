@@ -10,6 +10,43 @@ bkcore/hexgl/ShipControls.js
 ### Notes
 I decided to utilize port 8080 in the container and I will need to clean up some of my artifacts as a result.  So, if you see 8000/7000/etc... that is likely the old ports I had been using.
 
+
+## Deploy on Kubernetes/K8s 
+Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
+
+### Pull down the source
+#### Clone HexGl Repo (my fork)
+```
+  mkdir ~/Projects; cd $_
+  git clone https://github.com/cloudxabide/HexGL.git
+  cd HexGL
+```
+
+### Build the Container Image and push it (optional - you will have to update the deployment if you use your own repo)
+```
+  docker build -t my-hexgl .
+  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
+  docker push docker.io/cloudxabide/my-hexgl:latest
+```
+
+### Amazon EKS-Anywhere (or K8s, in general)
+
+... Deploy the app
+
+```
+  kubectl create namespace hexgl
+  kubectl config set-context --current --namespace=hexgl
+  kubectl create -f Deployments/hexgl-deployment.yaml        
+  kubectl expose deployment.apps/hexgl-deployment --type="LoadBalancer" --port 8080
+```
+
+### Rancher Desktop (NOTE: I need to clean this up)
+```
+kubectl port-forward $(kubectl get pods -n hexgl --selector=app=hexgl --no-headers | tail -1 | awk '{ print $1 }') 8080:8080
+```
+
+ex. ` kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080`
+
 ## Deploy on OpenShift
 ```
 ## HexGL
@@ -43,42 +80,6 @@ spec:
 At some point you will be able to browse to (depending on the route you enabled):
 https://hexgl.linuxrevolution.com/
 
-## Deploy on Kubernetes/K8s (EKS Anywhere, in this case)
-Status:  Needs work yet
-### Pull down the source
-```
-  mkdir ~/Projects; cd $_
-  git clone https://github.com/cloudxabide/HexGL.git
-  cd HexGL
-```
-
-### Build the Container Image and push it (optional)
-```
-  docker build -t my-hexgl .
-  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
-  docker push docker.io/cloudxabide/my-hexgl:latest
-```
-
-### Amazon EKS-Anywhere (or K8s, in general)
-#### Clone HexGl Repo (my fork)
-```
-  git clone https://github.com/cloudxabide/HexGL.git
-  cd HexGL
-```
-then... Deploy the app
-```
-  kubectl create namespace hexgl
-  kubectl config set-context --current --namespace=hexgl
-  kubectl create -f Deployments/hexgl-deployment.yaml        
-  kubectl expose deployment.apps/hexgl-deployment --type="LoadBalancer" --port 8080
-```
-
-### Rancher Desktop (NOTE: I need to clean this up)
-```
-kubectl port-forward $(kubectl get pods -n hexgl --selector=app=hexgl --no-headers | tail -1 | awk '{ print $1 }') 8080:8080
-```
-
-ex. ` kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080`
 
 ## Original Content Header
 HexGL
