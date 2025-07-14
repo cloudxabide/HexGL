@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
       - name: my-hexgl
-        image: docker.io/cloudxabide/my-hexgl:latest
+        image: docker.io/cloudxabide/my-hexgl-x86_64:latest
         ports:
         - containerPort: 8080
