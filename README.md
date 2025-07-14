@@ -17,16 +17,16 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
 ### Pull down the source
 #### Clone HexGl Repo (my fork)
 ```
-  mkdir ~/Projects; cd $_
+  mkdir ~/Developer/Projects; cd $_
   git clone https://github.com/cloudxabide/HexGL.git
   cd HexGL
 ```
 
 ### Build the Container Image and push it (optional - you will have to update the deployment if you use your own repo)
 ```
-  docker build -t my-hexgl .
-  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl:latest
-  docker push docker.io/cloudxabide/my-hexgl:latest
+  docker build -t my-hexgl-$(uname -m) .
+  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl-$(uname -m):latest
+  docker push docker.io/cloudxabide/my-hexgl-$(uname -m):latest
 ```
 
 ### Amazon EKS-Anywhere (or K8s, in general)
@@ -36,7 +36,7 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
 ```
   kubectl create namespace hexgl
   kubectl config set-context --current --namespace=hexgl
-  kubectl create -f Deployments/hexgl-deployment.yaml        
+  kubectl create -f Deployments/hexgl-deployment-$(uname -m).yaml        
   kubectl expose deployment.apps/hexgl-deployment --type="LoadBalancer" --port 8080
 ```
 
