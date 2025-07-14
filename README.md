@@ -25,7 +25,7 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
 ### Build the Container Image and push it (optional - you will have to update the deployment if you use your own repo)
 ```
   docker build -t my-hexgl-$(uname -m) .
-  docker tag my-hexgl:latest docker.io/cloudxabide/my-hexgl-$(uname -m):latest
+  docker tag my-hexgl$(uname -m):latest docker.io/cloudxabide/my-hexgl-$(uname -m):latest
   docker push docker.io/cloudxabide/my-hexgl-$(uname -m):latest
 ```
 
