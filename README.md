@@ -23,6 +23,8 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
 ```
 
 ### Determine which ARCH you want to build/deploy
+As I am now deploying apps on X86 and ARM64 somewhat regularly, I am exploring efficient ways to deploy multi-arch containers.  That said: *this* is not efficient ;-) but, it does get it done.
+
 ```
   # APPARCH=arm64
   # APPARCH=x86_64
