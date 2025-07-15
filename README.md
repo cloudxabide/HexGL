@@ -22,11 +22,15 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
   cd HexGL
 ```
 
-### Build the Container Image and push it (optional - you will have to update the deployment if you use your own repo)
+### Determine which ARCH you want to build/deploy
 ```
   # APPARCH=arm64
   # APPARCH=x86_64
   APPARCH=$(uname -m)
+```
+
+### Build the Container Image and push it (optional - you will have to update the deployment if you use your own repo)
+```
   docker build -t my-hexgl-${APPARCH} .
   docker tag my-hexgl${APPARCH}:latest docker.io/cloudxabide/my-hexgl-${APPARCH}:latest
   docker push docker.io/cloudxabide/my-hexgl-${APPARCH}:latest
@@ -39,7 +43,7 @@ Status:  Needs work yet - works with EKS Anywhere and Rancher Desktop though
 ```
   kubectl create namespace hexgl
   kubectl config set-context --current --namespace=hexgl
-  kubectl create -f Deployments/hexgl-deployment-$(uname -m).yaml        
+  kubectl create -f Deployments/hexgl-deployment-${APPARCH}.yaml
   kubectl expose deployment.apps/hexgl-deployment --type="LoadBalancer" --port 8080
 ```
 
