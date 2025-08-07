@@ -56,6 +56,35 @@ kubectl port-forward $(kubectl get pods -n hexgl --selector=app=hexgl --no-heade
 
 ex. ` kubectl port-forward pod/hexgl-deployment-5c776cf66b-24dm5 8080:8080`
 
+
+#### Or, create an Ingress
+
+I created a DNS wildcard *.apps.rke2-harv.kubernerdes.lab pointing to my cluster endpoint
+```
+cat << EOF | tee hexgl-ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hexgl-ui
+  namespace: hexgl
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: hexgl.apps.rke2-harv.kubernerdes.lab
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hexgl
+            port:
+              number: 8080
+EOF
+kubectl apply -f hexgl-ingress.yaml
+
+
 ## Deploy on OpenShift
 ```
 ## HexGL
