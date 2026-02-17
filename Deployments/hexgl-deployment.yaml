@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hexgl-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hexgl
+  template:
+    metadata:
+      labels:
+        app: hexgl
+    spec:
+      containers:
+      - name: my-hexgl
+        image: docker.io/cloudxabide/my-hexgl:latest
+        ports:
+        - containerPort: 8080
